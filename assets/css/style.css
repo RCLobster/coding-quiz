@@ -1,12 +1,32 @@
 * {
     margin: 0px;
     padding: 0px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 body {
     text-align: center;
+    
 }
 
 h1 {
     padding: 10px;
+    font-size: 300%;
+}
+
+button {
+    margin: 10px;
+    padding: 5px;
+}
+
+.introPage {
+    margin: 10px auto;
+}
+
+.quizQuestions {
+    margin: 10px auto;
+}
+
+.highScores {
+    margin: 10px auto;
 }
