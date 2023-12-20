@@ -42,4 +42,25 @@ On load: Display the introPage
 5. Loop 3 and 4 until all questions are displayed OR time runs out
 6. Allow player to see their score and enter intials
 7. Save score and initials to the leader board in localStorage AND on screen in an <li>
-*/
+-------------------------------------------------------------------------------------------------------*/
+
+//CLASS REFERENCES
+var introPage_Div = document.querySelector(".introPage");
+var quizQuestions_Div = document.querySelector(".quizQuestions");
+var dataEntry_Div = document.querySelector(".dataEntry");
+var leaderboard_Div = document.querySelector(".leaderboard");
+//ID REFERENCES
+var question_ID = document.querySelector("#question");
+var answerList_ID = document.querySelector("#quizAnswers");
+var answerFeedback_ID = document.querySelector("#answerFeedback");
+var playerScore_ID = document.querySelector("#playerScore");
+var leaderboardParent_ID = document.querySelector("#leaderboard");
+//BUTTONS
+var startGame_Btn = document.querySelector("#startGame-btn");
+var submit_Btn = documnet.querySelector("#submitInitials-btn");
+var backToStart_Btn = document.querySelector("#returnToStart-btn");
+var clearScores_Btn = document.querySelector("#clearScores-btn");
+//INPUTS
+var initials_Input = document.querySelector("#inputInitials");
+
+//VARIABLES
