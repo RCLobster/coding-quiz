@@ -7,7 +7,7 @@ On Page Load: Display the introPage
     --*start a timer with X seconds
 
 While .quizQuestions is shown:
-1. A question is displayed from array of questions
+1. --A question is displayed from array of questions
 2. Answer choices for the current question are displayed in <li> format
 3.* When an answer choice is clicked,
     if correct: display correct, add 1 point
@@ -89,7 +89,7 @@ function startGame() {
     //reset win condition bool
     hasWon = false;
     //set timerCount
-    timerCount = 11;
+    timerCount = 61;
 
     //toggleIntroPage OFF
     toggleIntroPage();
@@ -104,6 +104,10 @@ function startTimer() {
         //subtrac 1 from timer count every second and display the count to webpage
         timerCount--;
         timerText_ID.textContent = timerCount;
+
+        if (!hasWon && timerCount > 0) {
+            displayQuestions();
+        }
 
         //check for win condition
         if (hasWon && timerCount > 0){
@@ -126,7 +130,11 @@ function startTimer() {
             toggleDataEntryPage();
         }
     }, 1000);
+}
 
+function displayQuestions() {
+    var currentQuestion = 0;
+    question_ID.textContent = questionsToAsk[currentQuestion];
 }
 
 //when startGame button is clicked, startGame()
@@ -176,7 +184,6 @@ function toggleLeaderboardPage() {
         leaderboard_Div.hidden = false;
     }
 }
-
 
 function init() {
     //toggleIntroPage ON
