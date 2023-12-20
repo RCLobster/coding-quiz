@@ -67,17 +67,24 @@ var initials_Input = document.querySelector("#inputInitials");
 var hasWon = false;
 var timer;
 var timerCount;
-var hideIntroPage = false;
+
+var isIntroPageOn = false;
+var isQuestionsPageOn = true;
+var isDataEntryPageOn = true;
+var isLeaderboardPageOn = true;
 
 //Code
 function startGame() {
     //hide the introPage div and show quizQuestion div
-    introPage_Div.hidden = true;
-    quizQuestions_Div.hidden = false;
+    // introPage_Div.hidden = true;
+    // quizQuestions_Div.hidden = false;
+    toggleIntroPage();
+    toggleQuestionsPage();
+
     //reset win condition bool
     hasWon = false;
     //set timerCount
-    timerCount = 60;
+    timerCount = 10;
     //start timer
     startTimer();
 }
@@ -93,24 +100,79 @@ function startTimer() {
     if (hasWon && timerCount > 0){
         clearInterval(timer);
         //show .dataEntry div
+        // quizQuestions_Div.hidden = true;
+        // dataEntry_Div.hidden = false;
     }
 
     //if timerCount reaches 0, end quiz
-    if (timerCount === 0){
+    if (timerCount <= 0){
         clearInterval(timer);
         //show .dataEntry div
+        // quizQuestions_Div.hidden = true;
+        toggleQuestionsPage();
+        // dataEntry_Div.hidden = false;
+        toggleDataEntryPage();
     }
 }
 
 //when startGame button is clicked, startGame()
 startGame_Btn.addEventListener("click", startGame);
 
+function toggleIntroPage() {
+    isIntroPageOn = !isIntroPageOn;
+    console.log("isIntroPage: " + isIntroPageOn);
+    
+    if(!isIntroPageOn) {
+        introPage_Div.hidden = true;
+    } else {
+        introPage_Div.hidden = false;
+    }
+}
+
+function toggleQuestionsPage() {
+    isQuestionsPageOn = !isQuestionsPageOn;
+    console.log("isQuestionPage" + isQuestionsPageOn)
+
+    if(!isQuestionsPageOn) {
+        quizQuestions_Div.hidden = true;
+    } else {
+        quizQuestions_Div.hidden = false;
+    }
+}
+
+function toggleDataEntryPage() {
+    isDataEntryPageOn = !isDataEntryPageOn;
+    console.log("isDataEntryPage: " + isDataEntryPageOn);
+
+    if(!isDataEntryPageOn) {
+        dataEntry_Div.hidden = true;
+    } else {
+        dataEntry_Div.hidden = false;
+    }
+}
+
+function toggleLeaderboardPage() {
+    isLeaderboardPageOn = !isLeaderboardPageOn;
+    console.log("isLeaderboardPage: " + isLeaderboardPageOn);
+
+    if(!isLeaderboardPageOn) {
+        leaderboard_Div.hidden = true;
+    } else {
+        leaderboard_Div.hidden = false;
+    }
+}
+
+
 function init() {
     //display introPage and hide all other divs
-    introPage_Div.hidden = false;
-    quizQuestions_Div.hidden = true;
-    dataEntry_Div.hidden = true;
-    leaderboard_Div.hidden = true;
+    toggleIntroPage();
+    // introPage_Div.hidden = false;
+    toggleQuestionsPage();
+    // quizQuestions_Div.hidden = true;
+    toggleDataEntryPage();
+    // dataEntry_Div.hidden = true;
+    toggleLeaderboardPage();
+    // leaderboard_Div.hidden = true;
 }
 
 init();
