@@ -71,6 +71,8 @@ var initials_Input = document.querySelector("#inputInitials");
 var hasWon = false;
 var timer;
 var timerCount;
+var currentQuestion = 0;
+var correctAnswer;
 
 var isIntroPageOn = false;
 var isQuestionsPageOn = true;
@@ -116,6 +118,7 @@ function startGame() {
     toggleQuestionsPage();
     //start timer
     startTimer();
+    displayQuestions();
 }
 
 function startTimer() {
@@ -124,9 +127,9 @@ function startTimer() {
         timerCount--;
         timerText_ID.textContent = timerCount;
 
-        if (!hasWon && timerCount > 0) {
-            displayQuestions();
-        }
+        // if (!hasWon && timerCount > 0) {
+        //     displayQuestions();
+        // }
 
         //check for win condition
         if (hasWon && timerCount > 0) {
@@ -152,35 +155,89 @@ function startTimer() {
 }
 
 function displayQuestions() {
-    var currentQuestion = 0;
-    var correctAnswer;
+    console.log(correctAnswer);
+    console.log("current q: " + currentQuestion);
+    if(currentQuestion === 0) {
 
-    for(var x = 0; x < questionsToAsk.length; x++) {
-        if(currentQuestion === 0){
-            correctAnswer = q1Answers[3]
-            question_ID.textContent = questionsToAsk[x];
-            answer1_Btn.textContent = q0Answers[0];
-            answer2_Btn.textContent = q0Answers[1];
-            answer3_Btn.textContent = q0Answers[2];
-            answer4_Btn.textContent = q0Answers[3];
-            console.log(correctAnswer);
-        } else if(currentQuestion === 1){
-            correctAnswer = q2Answers[0]
-            question_ID.textContent = questionsToAsk[x];
-            answer1_Btn.textContent = q1Answers[0];
-            answer2_Btn.textContent = q1Answers[1];
-            answer3_Btn.textContent = q1Answers[2];
-            answer4_Btn.textContent = q1Answers[3];
-        } else if(currentQuestion === 2){
-            correctAnswer = q2Answers[2]
-            question_ID.textContent = questionsToAsk[x];
-            answer1_Btn.textContent = q2Answers[0];
-            answer2_Btn.textContent = q2Answers[1];
-            answer3_Btn.textContent = q2Answers[2];
-            answer4_Btn.textContent = q2Answers[3];
-        }
+        correctAnswer = q0Answers[3]
+        question_ID.textContent = questionsToAsk[currentQuestion];
+        answer1_Btn.textContent = q0Answers[0];
+        answer1_Btn.setAttribute("data-answer", "incorrect");
+        answer2_Btn.textContent = q0Answers[1];
+        answer2_Btn.setAttribute("data-answer", "incorrect");
+        answer3_Btn.textContent = q0Answers[2];
+        answer3_Btn.setAttribute("data-answer", "incorrect");
+        answer4_Btn.textContent = q0Answers[3];
+        answer4_Btn.setAttribute("data-answer", "correct");
+
+    } else if(currentQuestion === 1){
+        //currentQuestion === 1;
+        correctAnswer = q1Answers[0]
+        question_ID.textContent = questionsToAsk[currentQuestion];
+        answer1_Btn.textContent = q1Answers[0];
+        answer2_Btn.textContent = q1Answers[1];
+        answer3_Btn.textContent = q1Answers[2];
+        answer4_Btn.textContent = q1Answers[3];
+
+    } else if(currentQuestion === 2){
+        //currentQuestion === 2;
+        correctAnswer = q2Answers[2]
+        question_ID.textContent = questionsToAsk[currentQuestion];
+        answer1_Btn.textContent = q2Answers[0];
+        answer2_Btn.textContent = q2Answers[1];
+        answer3_Btn.textContent = q2Answers[2];
+        answer4_Btn.textContent = q2Answers[3];
+
+    }
+}
+
+answer1_Btn.addEventListener("click", checkAnswer);
+answer2_Btn.addEventListener("click", checkAnswer);
+answer3_Btn.addEventListener("click", checkAnswer);
+answer4_Btn.addEventListener("click", checkAnswer);
+
+function checkAnswer(event) {
+    event.preventDefault();
+    if(currentQuestion > questionsToAsk.length){
+        currentQuestion = 0;
+        console.log("This is working");
     }
 
+    var checkAttribute = event.target.getAttribute("data-answer");
+    //console.log(currentQuestion, correctAnswer, q0Answers[3]);
+    if(currentQuestion === 0 && checkAttribute === "correct"){
+        //correct
+        console.log("Q0 is CORRECT");
+        answerFeedback_ID.textContent = "Correct!";
+        currentQuestion++;
+        displayQuestions();
+    } else if (currentQuestion === 0 && checkAttribute === "incorrect"){
+        //incorrect
+        console.log("q0 incorrect");
+        answerFeedback_ID.textContent = "Incorrect :(";
+        currentQuestion++;
+        displayQuestions();
+    }
+
+    if(currentQuestion === 1 && correctAnswer === q1Answers[0]){
+        answerFeedback_ID.textContent = "Correct!";
+        currentQuestion++;
+        displayQuestions();
+    } else if(currentQuestion === 1 && correctAnswer !== q1Answers[0]){
+        answerFeedback_ID.textContent = "Incorrect :(";
+        currentQuestion++;
+        displayQuestions();
+    }
+
+    if(currentQuestion === 2 && correctAnswer === q2Answers[2]){
+        answerFeedback_ID.textContent = "Correct!";
+        currentQuestion++;
+        displayQuestions();
+    } else if(currentQuestion === 2 && correctAnswer !== q2Answers[2]){
+        answerFeedback_ID.textContent = "Incorrect :(";
+        currentQuestion++;
+        displayQuestions();
+    }
 }
 
 //when startGame button is clicked, startGame()
