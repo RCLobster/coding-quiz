@@ -7,10 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Coding Quiz</h1>
-
+    
     <div class="introPage">
+        <h1>Coding Quiz</h1>
+
         <p>Welcome to the coding quiz! Correct answers will score you points while incorrect answers will subtract from your remaining time. Press 'Start Game' to begin.</p>
+        
         <button id="startGame-btn">Start Game</button>
     </div>
 
@@ -18,13 +20,23 @@
         <h2><!-- Quiz Questions Go Here --></h2>
         
         <ul id="quizAnswers"><!-- Answers go here --></ul>
+
+        <p id="answerFeedback"><!-- Displays Correct or Incorrect based on answer --></p>
     </div>
 
-    <div class="highScores">
+    <div class="dataEntry">
+        <h3>Quiz Results</h3>
         <p id="scoreDisplay">You scored <span id="playerScore">0</span> points</p>
         <input id="inputInitials" placeholder="Enter your initials..."/>
+        <button id="submitInitials-btn">Submit</button>
 
+    </div>
+
+    <div class="leaderboard">
+        <h3>Leaderboard</h3>
         <ul id="leaderboard"></ul>
+        <button id="returnToStart-btn">Go Back</button>
+        <button id="clearScores-btn">Clear Leaderboard</button>
     </div>
     <script src="./assets/js/script.js"></script>
 </body>
