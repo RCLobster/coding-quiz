@@ -75,16 +75,15 @@ var isLeaderboardPageOn = true;
 
 //Code
 function startGame() {
-    //hide the introPage div and show quizQuestion div
-    // introPage_Div.hidden = true;
-    // quizQuestions_Div.hidden = false;
-    toggleIntroPage();
-    toggleQuestionsPage();
-
     //reset win condition bool
     hasWon = false;
     //set timerCount
     timerCount = 10;
+
+    //toggleIntroPage OFF
+    toggleIntroPage();
+    //toggleQuestionsPage ON
+    toggleQuestionsPage();
     //start timer
     startTimer();
 }
@@ -94,29 +93,34 @@ function startTimer() {
         //subtrac 1 from timer count every second and display the count to webpage
         timerCount--;
         timerText_ID.textContent = timerCount;
+
+        //check for win condition
+        if (hasWon && timerCount > 0){
+            clearInterval(timer);
+            
+            //toggleQuestionsPage OFF
+            toggleQuestionsPage();
+            //toggleDataEntryPage ON
+            toggleDataEntryPage();
+        }
+    
+        //if timerCount reaches 0, end quiz
+        if (timerCount <= 0){
+            clearInterval(timer);
+            //console.log("timer hit 0");
+            
+            //toggleQuestionsPage OFF
+            toggleQuestionsPage();
+            //toggleDataEntryPage ON
+            toggleDataEntryPage();
+        }
     }, 1000);
 
-    //check for win condition
-    if (hasWon && timerCount > 0){
-        clearInterval(timer);
-        //show .dataEntry div
-        // quizQuestions_Div.hidden = true;
-        // dataEntry_Div.hidden = false;
-    }
-
-    //if timerCount reaches 0, end quiz
-    if (timerCount <= 0){
-        clearInterval(timer);
-        //show .dataEntry div
-        // quizQuestions_Div.hidden = true;
-        toggleQuestionsPage();
-        // dataEntry_Div.hidden = false;
-        toggleDataEntryPage();
-    }
 }
 
 //when startGame button is clicked, startGame()
 startGame_Btn.addEventListener("click", startGame);
+
 
 function toggleIntroPage() {
     isIntroPageOn = !isIntroPageOn;
@@ -131,7 +135,7 @@ function toggleIntroPage() {
 
 function toggleQuestionsPage() {
     isQuestionsPageOn = !isQuestionsPageOn;
-    console.log("isQuestionPage" + isQuestionsPageOn)
+    console.log("isQuestionPage: " + isQuestionsPageOn)
 
     if(!isQuestionsPageOn) {
         quizQuestions_Div.hidden = true;
@@ -164,15 +168,15 @@ function toggleLeaderboardPage() {
 
 
 function init() {
-    //display introPage and hide all other divs
+    //toggleIntroPage ON
     toggleIntroPage();
-    // introPage_Div.hidden = false;
+    //toggleQuestionsPage OFF
     toggleQuestionsPage();
-    // quizQuestions_Div.hidden = true;
+    //toggleDataEntryPage OFF
     toggleDataEntryPage();
-    // dataEntry_Div.hidden = true;
+    //toggleLeaderboardPage OFF
     toggleLeaderboardPage();
-    // leaderboard_Div.hidden = true;
+
 }
 
 init();
