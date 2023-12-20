@@ -219,21 +219,21 @@ function checkAnswer(event) {
         displayQuestions();
     }
 
-    if(currentQuestion === 1 && correctAnswer === q1Answers[0]){
+    if(currentQuestion === 1 && checkAttribute === "correct"){
         answerFeedback_ID.textContent = "Correct!";
         currentQuestion++;
         displayQuestions();
-    } else if(currentQuestion === 1 && correctAnswer !== q1Answers[0]){
+    } else if(currentQuestion === 1 && checkAttribute === "incorrect"){
         answerFeedback_ID.textContent = "Incorrect :(";
         currentQuestion++;
         displayQuestions();
     }
 
-    if(currentQuestion === 2 && correctAnswer === q2Answers[2]){
+    if(currentQuestion === 2 && checkAttribute === "correct"){
         answerFeedback_ID.textContent = "Correct!";
         currentQuestion++;
         displayQuestions();
-    } else if(currentQuestion === 2 && correctAnswer !== q2Answers[2]){
+    } else if(currentQuestion === 2 && checkAttribute === "incorrect"){
         answerFeedback_ID.textContent = "Incorrect :(";
         currentQuestion++;
         displayQuestions();
