@@ -57,10 +57,30 @@ var playerScore_ID = document.querySelector("#playerScore");
 var leaderboardParent_ID = document.querySelector("#leaderboard");
 //BUTTONS
 var startGame_Btn = document.querySelector("#startGame-btn");
-var submit_Btn = documnet.querySelector("#submitInitials-btn");
+var submit_Btn = document.querySelector("#submitInitials-btn");
 var backToStart_Btn = document.querySelector("#returnToStart-btn");
 var clearScores_Btn = document.querySelector("#clearScores-btn");
 //INPUTS
 var initials_Input = document.querySelector("#inputInitials");
 
 //VARIABLES
+var hasWon = false;
+var timer = 0;
+
+//Code
+function startGame() {
+
+}
+
+//when startGame button is clicked, startGame()
+startGame_Btn.addEventListener("click", startGame);
+
+function init() {
+    //display introPage and hide all other divs
+    introPage_Div.hidden = false;
+    quizQuestions_Div.hidden = true;
+    dataEntry_Div.hidden = true;
+    leaderboard_Div.hidden = true;
+}
+
+init();
