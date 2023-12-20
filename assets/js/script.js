@@ -13,9 +13,9 @@ While .quizQuestions is shown:
     if correct: display correct, add 1 point
     *if incorrect: display incorrect, subtract X seconds from timer
     delay then display the next question
-4.* When all questions are answered OR timer reaches 0 seconds
-    hide .quizQuestions div
-    show .dataEntry
+4.--* When all questions are answered OR timer reaches 0 seconds
+    --hide .quizQuestions div
+    --show .dataEntry
 
 While .dataEntry is shown:
 1. Display player score using #playerScore
@@ -73,12 +73,23 @@ var isQuestionsPageOn = true;
 var isDataEntryPageOn = true;
 var isLeaderboardPageOn = true;
 
+//ARRAYS
+var questionsToAsk = [
+    "What does console.log() do?",
+    "A string variable is wrapped in what?",
+    "What does document.querySelector('.card') do?",
+    "Which of the following is NOT a common variable type?"
+];
+var answers = [
+
+];
+
 //Code
 function startGame() {
     //reset win condition bool
     hasWon = false;
     //set timerCount
-    timerCount = 10;
+    timerCount = 11;
 
     //toggleIntroPage OFF
     toggleIntroPage();
@@ -108,7 +119,7 @@ function startTimer() {
         if (timerCount <= 0){
             clearInterval(timer);
             //console.log("timer hit 0");
-            
+
             //toggleQuestionsPage OFF
             toggleQuestionsPage();
             //toggleDataEntryPage ON
