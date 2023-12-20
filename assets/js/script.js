@@ -4,7 +4,7 @@ On Page Load: Display the introPage
 1.* Clicking start game button will:
     --hide .introPage div
     --show .quizQuestions div
-    *start a timer with X seconds
+    --*start a timer with X seconds
 
 While .quizQuestions is shown:
 1. A question is displayed from array of questions
@@ -79,7 +79,27 @@ function startGame() {
     //set timerCount
     timerCount = 60;
     //start timer
+    startTimer();
+}
 
+function startTimer() {
+    timer = setInterval(function(){
+        //subtrac 1 from timer count every second and display the count to webpage
+        timerCount--;
+        timerText_ID.textContent = timerCount;
+    }, 1000);
+
+    //check for win condition
+    if (hasWon && timerCount > 0){
+        clearInterval(timer);
+        //show .dataEntry div
+    }
+
+    //if timerCount reaches 0, end quiz
+    if (timerCount === 0){
+        clearInterval(timer);
+        //show .dataEntry div
+    }
 }
 
 //when startGame button is clicked, startGame()
