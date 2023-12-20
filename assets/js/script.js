@@ -2,9 +2,8 @@
 GOALS --> Create a timed quiz about JavaScript fundamentals that stores high scores
 On Page Load: Display the introPage
 1.* Clicking start game button will:
-    hide .introPage div
-    disable startGame-btn button
-    show .quizQuestions div
+    --hide .introPage div
+    --show .quizQuestions div
     *start a timer with X seconds
 
 While .quizQuestions is shown:
@@ -66,9 +65,14 @@ var initials_Input = document.querySelector("#inputInitials");
 //VARIABLES
 var hasWon = false;
 var timer = 0;
+var hideIntroPage = false;
 
 //Code
 function startGame() {
+    //hide the introPage div and show quizQuestion div
+    introPage_Div.hidden = true;
+    quizQuestions_Div.hidden = false;
+    //start timer
 
 }
 
