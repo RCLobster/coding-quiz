@@ -14,6 +14,11 @@ h1 {
     font-size: 300%;
 }
 
+input {
+    margin: 10px;
+    padding: 5px;
+}
+
 button {
     margin: 10px;
     padding: 5px;
