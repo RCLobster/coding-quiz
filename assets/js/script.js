@@ -163,10 +163,13 @@ function displayQuestions() {
         question_ID.textContent = questionsToAsk[currentQuestion];
         answer1_Btn.textContent = q0Answers[0];
         answer1_Btn.setAttribute("data-answer", "incorrect");
+
         answer2_Btn.textContent = q0Answers[1];
         answer2_Btn.setAttribute("data-answer", "incorrect");
+
         answer3_Btn.textContent = q0Answers[2];
         answer3_Btn.setAttribute("data-answer", "incorrect");
+
         answer4_Btn.textContent = q0Answers[3];
         answer4_Btn.setAttribute("data-answer", "correct");
 
@@ -175,18 +178,31 @@ function displayQuestions() {
         correctAnswer = q1Answers[0]
         question_ID.textContent = questionsToAsk[currentQuestion];
         answer1_Btn.textContent = q1Answers[0];
-        answer2_Btn.textContent = q1Answers[1];
-        answer3_Btn.textContent = q1Answers[2];
-        answer4_Btn.textContent = q1Answers[3];
+        answer1_Btn.setAttribute("data-answer", "correct");
 
+        answer2_Btn.textContent = q1Answers[1];
+        answer2_Btn.setAttribute("data-answer", "incorrect");
+
+        answer3_Btn.textContent = q1Answers[2];
+        answer3_Btn.setAttribute("data-answer", "incorrect");
+
+        answer4_Btn.textContent = q1Answers[3];
+        answer4_Btn.setAttribute("data-answer", "incorrect");
     } else if(currentQuestion === 2){
         //currentQuestion === 2;
         correctAnswer = q2Answers[2]
         question_ID.textContent = questionsToAsk[currentQuestion];
         answer1_Btn.textContent = q2Answers[0];
+        answer1_Btn.setAttribute("data-answer", "incorrect");
+
         answer2_Btn.textContent = q2Answers[1];
+        answer2_Btn.setAttribute("data-answer", "incorrect");
+
         answer3_Btn.textContent = q2Answers[2];
+        answer3_Btn.setAttribute("data-answer", "correct");
+
         answer4_Btn.textContent = q2Answers[3];
+        answer4_Btn.setAttribute("data-answer", "incorrect");
 
     }
 }
@@ -220,20 +236,24 @@ function checkAnswer(event) {
     }
 
     if(currentQuestion === 1 && checkAttribute === "correct"){
+        console.log("q1 is CORRECT");
         answerFeedback_ID.textContent = "Correct!";
         currentQuestion++;
         displayQuestions();
     } else if(currentQuestion === 1 && checkAttribute === "incorrect"){
+        console.log("q1 is incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
         currentQuestion++;
         displayQuestions();
     }
 
     if(currentQuestion === 2 && checkAttribute === "correct"){
+        console.log("q2 is CORRECT");
         answerFeedback_ID.textContent = "Correct!";
         currentQuestion++;
         displayQuestions();
     } else if(currentQuestion === 2 && checkAttribute === "incorrect"){
+        console.log("q2 is incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
         currentQuestion++;
         displayQuestions();
