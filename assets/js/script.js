@@ -54,6 +54,7 @@ var answerList_ID = document.querySelector("#quizAnswers");
 var answerFeedback_ID = document.querySelector("#answerFeedback");
 var playerScore_ID = document.querySelector("#playerScore");
 var leaderboardParent_ID = document.querySelector("#leaderboard");
+var timerText_ID = document.querySelector("#timer-text");
 //BUTTONS
 var startGame_Btn = document.querySelector("#startGame-btn");
 var submit_Btn = document.querySelector("#submitInitials-btn");
@@ -64,7 +65,8 @@ var initials_Input = document.querySelector("#inputInitials");
 
 //VARIABLES
 var hasWon = false;
-var timer = 0;
+var timer;
+var timerCount;
 var hideIntroPage = false;
 
 //Code
@@ -72,6 +74,10 @@ function startGame() {
     //hide the introPage div and show quizQuestion div
     introPage_Div.hidden = true;
     quizQuestions_Div.hidden = false;
+    //reset win condition bool
+    hasWon = false;
+    //set timerCount
+    timerCount = 60;
     //start timer
 
 }
