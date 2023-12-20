@@ -57,6 +57,10 @@ var leaderboardParent_ID = document.querySelector("#leaderboard");
 var timerText_ID = document.querySelector("#timer-text");
 //BUTTONS
 var startGame_Btn = document.querySelector("#startGame-btn");
+var answer1_Btn = document.querySelector("#answerChoice1-btn");
+var answer2_Btn = document.querySelector("#answerChoice2-btn");
+var answer3_Btn = document.querySelector("#answerChoice3-btn");
+var answer4_Btn = document.querySelector("#answerChoice4-btn");
 var submit_Btn = document.querySelector("#submitInitials-btn");
 var backToStart_Btn = document.querySelector("#returnToStart-btn");
 var clearScores_Btn = document.querySelector("#clearScores-btn");
@@ -75,13 +79,28 @@ var isLeaderboardPageOn = true;
 
 //ARRAYS
 var questionsToAsk = [
-    "What does console.log() do?",
     "A string variable is wrapped in what?",
     "What does document.querySelector('.card') do?",
     "Which of the following is NOT a common variable type?"
 ];
-var answers = [
-
+var answersToShow = [];
+var q0Answers = [
+    "A) Parenthesis",
+    "B) Square Brackets",
+    "C) Exclamation Points", 
+    "D) Quotation Marks"
+];
+var q1Answers = [
+    "A) Selects all HTML elements with class card",
+    "B) Asks a question about cards",
+    "C) Selects all HTML elements with ID card",
+    "D) I don't know what it does"
+];
+var q2Answers = [
+    "A) Number",
+    "B) Null",
+    "C) Prompt",
+    "D) String"
 ];
 
 //Code
@@ -100,7 +119,7 @@ function startGame() {
 }
 
 function startTimer() {
-    timer = setInterval(function(){
+    timer = setInterval(function () {
         //subtrac 1 from timer count every second and display the count to webpage
         timerCount--;
         timerText_ID.textContent = timerCount;
@@ -110,17 +129,17 @@ function startTimer() {
         }
 
         //check for win condition
-        if (hasWon && timerCount > 0){
+        if (hasWon && timerCount > 0) {
             clearInterval(timer);
-            
+
             //toggleQuestionsPage OFF
             toggleQuestionsPage();
             //toggleDataEntryPage ON
             toggleDataEntryPage();
         }
-    
+
         //if timerCount reaches 0, end quiz
-        if (timerCount <= 0){
+        if (timerCount <= 0) {
             clearInterval(timer);
             //console.log("timer hit 0");
 
@@ -134,7 +153,34 @@ function startTimer() {
 
 function displayQuestions() {
     var currentQuestion = 0;
-    question_ID.textContent = questionsToAsk[currentQuestion];
+    var correctAnswer;
+
+    for(var x = 0; x < questionsToAsk.length; x++) {
+        if(currentQuestion === 0){
+            correctAnswer = q1Answers[3]
+            question_ID.textContent = questionsToAsk[x];
+            answer1_Btn.textContent = q0Answers[0];
+            answer2_Btn.textContent = q0Answers[1];
+            answer3_Btn.textContent = q0Answers[2];
+            answer4_Btn.textContent = q0Answers[3];
+            console.log(correctAnswer);
+        } else if(currentQuestion === 1){
+            correctAnswer = q2Answers[0]
+            question_ID.textContent = questionsToAsk[x];
+            answer1_Btn.textContent = q1Answers[0];
+            answer2_Btn.textContent = q1Answers[1];
+            answer3_Btn.textContent = q1Answers[2];
+            answer4_Btn.textContent = q1Answers[3];
+        } else if(currentQuestion === 2){
+            correctAnswer = q2Answers[2]
+            question_ID.textContent = questionsToAsk[x];
+            answer1_Btn.textContent = q2Answers[0];
+            answer2_Btn.textContent = q2Answers[1];
+            answer3_Btn.textContent = q2Answers[2];
+            answer4_Btn.textContent = q2Answers[3];
+        }
+    }
+
 }
 
 //when startGame button is clicked, startGame()
@@ -144,8 +190,8 @@ startGame_Btn.addEventListener("click", startGame);
 function toggleIntroPage() {
     isIntroPageOn = !isIntroPageOn;
     console.log("isIntroPage: " + isIntroPageOn);
-    
-    if(!isIntroPageOn) {
+
+    if (!isIntroPageOn) {
         introPage_Div.hidden = true;
     } else {
         introPage_Div.hidden = false;
@@ -156,7 +202,7 @@ function toggleQuestionsPage() {
     isQuestionsPageOn = !isQuestionsPageOn;
     console.log("isQuestionPage: " + isQuestionsPageOn)
 
-    if(!isQuestionsPageOn) {
+    if (!isQuestionsPageOn) {
         quizQuestions_Div.hidden = true;
     } else {
         quizQuestions_Div.hidden = false;
@@ -167,7 +213,7 @@ function toggleDataEntryPage() {
     isDataEntryPageOn = !isDataEntryPageOn;
     console.log("isDataEntryPage: " + isDataEntryPageOn);
 
-    if(!isDataEntryPageOn) {
+    if (!isDataEntryPageOn) {
         dataEntry_Div.hidden = true;
     } else {
         dataEntry_Div.hidden = false;
@@ -178,7 +224,7 @@ function toggleLeaderboardPage() {
     isLeaderboardPageOn = !isLeaderboardPageOn;
     console.log("isLeaderboardPage: " + isLeaderboardPageOn);
 
-    if(!isLeaderboardPageOn) {
+    if (!isLeaderboardPageOn) {
         leaderboard_Div.hidden = true;
     } else {
         leaderboard_Div.hidden = false;
