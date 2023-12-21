@@ -22,11 +22,11 @@ While .dataEntry is shown:
 2.--* Allow user to input their initials in #inputInitials
 3. --When submit button OR enter is pressed
     --*save current score and input initials in localStorage
-    hide .dataEntry div
-    show .leaderboard
+    --hide .dataEntry div
+    --show .leaderboard
 
 While .leaderboard is shown:
-1. Update display with score and initials from localStorage
+1. --Update display with score and initials from localStorage
 2. Organize leaderboard from highest score to lowest
 3. Clicking clearScores-btn will erase all scores and initals from localStorage
     leaderboard will display nothing
@@ -113,6 +113,8 @@ function startGame() {
     hasWon = false;
     //set timerCount
     timerCount = 61;
+    //reset current question
+    currentQuestion = 1; 
 
     //toggleIntroPage OFF
     toggleIntroPage();
@@ -306,24 +308,41 @@ function renderLeaderboard() {
     toggleDataEntryPage();
     toggleLeaderboardPage();
     var scoreToRender = JSON.parse(localStorage.getItem("newScore"));
-    console.log("saved score: " + scoreToRender);
+    //console.log("saved score: " + scoreToRender);
     
     if (scoreToRender !== null){
+        //create new <li> element
         var newLI = document.createElement("li");
+        //give newLI an id=#leaderboardScore
         newLI.setAttribute("id", "leaderboardScore");
+        //create new <p> element
         var newPinit = document.createElement("p");
+        //set newPinit to the value of localStorage initials
+        newPinit.setAttribute("id", "playerInitial");
         newPinit.textContent = scoreToRender.initials;
+        //create new <p> element
         var newPscore = document.createElement("p");
+        //set newPscore to the value of localStorage score
         newPscore.textContent = scoreToRender.score;
+        newPscore.setAttribute("id", "playerScore");
+        //append both <p> elements to newLI
         newLI.appendChild(newPinit);
         newLI.appendChild(newPscore);
+        //append <li> element to the <ul> parent object
         leaderboardParent_ID.appendChild(newLI);
         //leaderboardParent_ID.createElement("li");
-
-
     }
 
 }
+
+function restartGame() {
+    console.log("Told to restart");
+    toggleQuestionsPage();
+    toggleDataEntryPage();
+    init();
+}
+
+backToStart_Btn.addEventListener("click", restartGame)
 
 //when startGame button is clicked, startGame()
 startGame_Btn.addEventListener("click", startGame);
