@@ -19,9 +19,9 @@ While .quizQuestions is shown:
 
 While .dataEntry is shown:
 1. --Display player score using #playerScore
-2.* Allow user to input their initials in #inputInitials
-3. When submit button OR enter is pressed
-    *save current score and input initials in localStorage
+2.--* Allow user to input their initials in #inputInitials
+3. --When submit button OR enter is pressed
+    --*save current score and input initials in localStorage
     hide .dataEntry div
     show .leaderboard
 
@@ -290,8 +290,17 @@ function checkAnswer(event) {
 //leaderboard submission button
 submit_Btn.addEventListener("click", function(event) {
     event.preventDefault();
+    
+    //var finalScore;
+    //finalScore = playerScore_ID.textContent;
+    //Number(finalScore = playerScore_ID.textContent);
 
-    localStorage.setItem("newScore", JSON.stringify(playerScore_ID.textContent));
+    var player = {
+        initials: initials_Input.value,
+        score: playerScore_ID.textContent
+    };
+
+    localStorage.setItem("newScore", JSON.stringify(player));
 })
 
 //when startGame button is clicked, startGame()
