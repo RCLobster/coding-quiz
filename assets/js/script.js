@@ -139,15 +139,15 @@ function startTimer() {
         }
 
         //if timerCount reaches 0, end quiz
-        // if (timerCount <= 0) {
-        //     clearInterval(timer);
-        //     //console.log("timer hit 0");
+        if (timerCount <= 0) {
+            clearInterval(timer);
+            //console.log("timer hit 0");
 
-        //     //toggleQuestionsPage OFF
-        //     toggleQuestionsPage();
-        //     //toggleDataEntryPage ON
-        //     toggleDataEntryPage();
-        // }
+            //toggleQuestionsPage OFF
+            toggleQuestionsPage();
+            //toggleDataEntryPage ON
+            toggleDataEntryPage();
+        }
     }, 1000);
 }
 
