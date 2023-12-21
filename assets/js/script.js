@@ -53,7 +53,7 @@ var question_ID = document.querySelector("#question");
 var answerList_ID = document.querySelector("#quizAnswers");
 var answerFeedback_ID = document.querySelector("#answerFeedback");
 var playerScore_ID = document.querySelector("#playerScore");
-var leaderboardParent_ID = document.querySelector("#leaderboard");
+var leaderboardParent_ID = document.querySelector("#leaderboard-ul");
 var timerText_ID = document.querySelector("#timer-text");
 //BUTTONS
 var startGame_Btn = document.querySelector("#startGame-btn");
@@ -290,18 +290,40 @@ function checkAnswer(event) {
 //leaderboard submission button
 submit_Btn.addEventListener("click", function(event) {
     event.preventDefault();
-    
-    //var finalScore;
-    //finalScore = playerScore_ID.textContent;
-    //Number(finalScore = playerScore_ID.textContent);
 
+    //create an object to hold our current player's initials and score
     var player = {
         initials: initials_Input.value,
         score: playerScore_ID.textContent
     };
-
+    //store the player object in localStorage
     localStorage.setItem("newScore", JSON.stringify(player));
-})
+
+    renderLeaderboard();
+});
+
+function renderLeaderboard() {
+    toggleDataEntryPage();
+    toggleLeaderboardPage();
+    var scoreToRender = JSON.parse(localStorage.getItem("newScore"));
+    console.log("saved score: " + scoreToRender);
+    
+    if (scoreToRender !== null){
+        var newLI = document.createElement("li");
+        newLI.setAttribute("id", "leaderboardScore");
+        var newPinit = document.createElement("p");
+        newPinit.textContent = scoreToRender.initials;
+        var newPscore = document.createElement("p");
+        newPscore.textContent = scoreToRender.score;
+        newLI.appendChild(newPinit);
+        newLI.appendChild(newPscore);
+        leaderboardParent_ID.appendChild(newLI);
+        //leaderboardParent_ID.createElement("li");
+
+
+    }
+
+}
 
 //when startGame button is clicked, startGame()
 startGame_Btn.addEventListener("click", startGame);
