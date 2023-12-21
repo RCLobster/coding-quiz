@@ -161,6 +161,7 @@ function displayQuestions() {
 
         correctAnswer = q0Answers[3]
         question_ID.textContent = questionsToAsk[currentQuestion];
+        
         answer1_Btn.textContent = q0Answers[0];
         answer1_Btn.setAttribute("data-answer", "incorrect");
 
@@ -225,24 +226,30 @@ function checkAnswer(event) {
         //correct
         console.log("Q0 is CORRECT");
         answerFeedback_ID.textContent = "Correct!";
+        checkAttribute = null;
         currentQuestion++;
-        displayQuestions();
+        setTimeout(displayQuestions(), 2000);
+        //displayQuestions();
     } else if (currentQuestion === 0 && checkAttribute === "incorrect"){
         //incorrect
         console.log("q0 incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
+        checkAttribute = null;
         currentQuestion++;
-        displayQuestions();
+        setTimeout(displayQuestions(), 2000);
+        //displayQuestions();
     }
 
     if(currentQuestion === 1 && checkAttribute === "correct"){
         console.log("q1 is CORRECT");
         answerFeedback_ID.textContent = "Correct!";
+        checkAttribute = null;
         currentQuestion++;
         displayQuestions();
     } else if(currentQuestion === 1 && checkAttribute === "incorrect"){
         console.log("q1 is incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
+        checkAttribute = null;
         currentQuestion++;
         displayQuestions();
     }
@@ -250,11 +257,13 @@ function checkAnswer(event) {
     if(currentQuestion === 2 && checkAttribute === "correct"){
         console.log("q2 is CORRECT");
         answerFeedback_ID.textContent = "Correct!";
+        checkAttribute = null;
         currentQuestion++;
         displayQuestions();
     } else if(currentQuestion === 2 && checkAttribute === "incorrect"){
         console.log("q2 is incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
+        checkAttribute = null;
         currentQuestion++;
         displayQuestions();
     }
