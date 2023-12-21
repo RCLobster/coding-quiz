@@ -73,6 +73,7 @@ var timer;
 var timerCount;
 var currentQuestion = 0;
 var correctAnswer;
+var delay = 900;
 
 var isIntroPageOn = false;
 var isQuestionsPageOn = true;
@@ -157,6 +158,9 @@ function startTimer() {
 function displayQuestions() {
     console.log(correctAnswer);
     console.log("current q: " + currentQuestion);
+
+    //reset UI feedback to be empty
+    answerFeedback_ID.textContent = "";
     if(currentQuestion === 0) {
 
         correctAnswer = q0Answers[3]
@@ -220,23 +224,29 @@ function checkAnswer(event) {
         console.log("This is working");
     }
 
+    //check the value of the button that was just clicked and grab its data-answer attribute
     var checkAttribute = event.target.getAttribute("data-answer");
     //console.log(currentQuestion, correctAnswer, q0Answers[3]);
     if(currentQuestion === 0 && checkAttribute === "correct"){
         //correct
         console.log("Q0 is CORRECT");
+        //display to the player they got the question correct
         answerFeedback_ID.textContent = "Correct!";
+        //reset checkAttribute to no value
         checkAttribute = null;
+        //go to the next question
         currentQuestion++;
-        setTimeout(displayQuestions(), 2000);
+        //delay call of function to display next question
+        setTimeout(displayQuestions, delay);
         //displayQuestions();
     } else if (currentQuestion === 0 && checkAttribute === "incorrect"){
         //incorrect
         console.log("q0 incorrect");
+        //display to the player they got the question incorrect
         answerFeedback_ID.textContent = "Incorrect :(";
         checkAttribute = null;
         currentQuestion++;
-        setTimeout(displayQuestions(), 2000);
+        setTimeout(displayQuestions, delay);
         //displayQuestions();
     }
 
@@ -245,13 +255,13 @@ function checkAnswer(event) {
         answerFeedback_ID.textContent = "Correct!";
         checkAttribute = null;
         currentQuestion++;
-        displayQuestions();
+        setTimeout(displayQuestions, delay);
     } else if(currentQuestion === 1 && checkAttribute === "incorrect"){
         console.log("q1 is incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
         checkAttribute = null;
         currentQuestion++;
-        displayQuestions();
+        setTimeout(displayQuestions, delay);
     }
 
     if(currentQuestion === 2 && checkAttribute === "correct"){
@@ -259,13 +269,13 @@ function checkAnswer(event) {
         answerFeedback_ID.textContent = "Correct!";
         checkAttribute = null;
         currentQuestion++;
-        displayQuestions();
+        setTimeout(displayQuestions, delay);
     } else if(currentQuestion === 2 && checkAttribute === "incorrect"){
         console.log("q2 is incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
         checkAttribute = null;
         currentQuestion++;
-        displayQuestions();
+        setTimeout(displayQuestions, delay);
     }
 }
 
