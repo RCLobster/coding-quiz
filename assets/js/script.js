@@ -107,6 +107,9 @@ var q2Answers = [
     "D) String"
 ];
 
+var playersArray = [];
+var pointsArray = [];
+
 //Code
 function startGame() {
     //reset win condition bool
@@ -137,6 +140,7 @@ function startTimer() {
 
             //toggleQuestionsPage OFF
             toggleQuestionsPage();
+
             //toggleDataEntryPage ON
             toggleDataEntryPage();
         }
@@ -300,7 +304,12 @@ submit_Btn.addEventListener("click", function(event) {
     };
     //store the player object in localStorage
     localStorage.setItem("newScore", JSON.stringify(player));
+    
+    // localStorage.setItem("newPlayer", JSON.stringify(playersArray));
+    // localStorage.setItem("newScore", JSON.stringify(pointsArray));
 
+    //clear out the leaderboard input box
+    initials_Input.textContent = "";
     renderLeaderboard();
 });
 
@@ -308,7 +317,7 @@ function renderLeaderboard() {
     toggleDataEntryPage();
     toggleLeaderboardPage();
     var scoreToRender = JSON.parse(localStorage.getItem("newScore"));
-    //console.log("saved score: " + scoreToRender);
+    // //console.log("saved score: " + scoreToRender);
     
     if (scoreToRender !== null){
         //create new <li> element
@@ -318,21 +327,37 @@ function renderLeaderboard() {
         //create new <p> element
         var newPinit = document.createElement("p");
         //set newPinit to the value of localStorage initials
-        newPinit.setAttribute("id", "playerInitial");
-        newPinit.textContent = scoreToRender.initials;
+        //newPinit.setAttribute("id", "playerInitial");
+        newPinit.textContent = (scoreToRender.initials + "___________" + scoreToRender.score);
         //create new <p> element
-        var newPscore = document.createElement("p");
+        //var newPscore = document.createElement("p");
         //set newPscore to the value of localStorage score
-        newPscore.textContent = scoreToRender.score;
-        newPscore.setAttribute("id", "playerScore");
+        //newPscore.textContent = scoreToRender.score;
+        //newPscore.setAttribute("id", "playerScore");
         //append both <p> elements to newLI
         newLI.appendChild(newPinit);
-        newLI.appendChild(newPscore);
+        //newLI.appendChild(newPscore);
         //append <li> element to the <ul> parent object
         leaderboardParent_ID.appendChild(newLI);
         //leaderboardParent_ID.createElement("li");
     }
 
+    // var storedPlayers = JSON.parse(localStorage.getItem("newPlayer"));
+    // var storedScores = JSON.parse(localStorage.getItem("newScore"));
+    // if (storedPlayers !== null){
+    //     var playersToDisplay = storedPlayers;
+    //     var scoresToDisplay = storedScores;
+
+    //     for(var x = 0; x < playersArray.length; x++) {
+    //         playersToDisplay = playersArray[x];
+    //     }
+
+    //     for(var i = 0; i < pointsArray.length; i++) {
+    //         scoresToDisplay = pointsArray[x];
+    //     }
+    //     console.log(playersToDisplay);
+    //     console.log(scoresToDisplay);
+    // }
 }
 
 function restartGame() {
@@ -342,6 +367,18 @@ function restartGame() {
     init();
 }
 
+//erase all children of <ul> element with tag #leaderboard-ul
+function eraseLeaderboard(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+eraseLeaderboard(leaderboardParent_ID);
+
+//erases leaderboard data on click
+clearScores_Btn.addEventListener("click", eraseLeaderboard)
+
+//restarts the game on click
 backToStart_Btn.addEventListener("click", restartGame)
 
 //when startGame button is clicked, startGame()
