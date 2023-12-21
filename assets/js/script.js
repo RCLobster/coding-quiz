@@ -140,15 +140,15 @@ function startTimer() {
         }
 
         //if timerCount reaches 0, end quiz
-        if (timerCount <= 0) {
-            clearInterval(timer);
-            //console.log("timer hit 0");
+        // if (timerCount <= 0) {
+        //     clearInterval(timer);
+        //     //console.log("timer hit 0");
 
-            //toggleQuestionsPage OFF
-            toggleQuestionsPage();
-            //toggleDataEntryPage ON
-            toggleDataEntryPage();
-        }
+        //     //toggleQuestionsPage OFF
+        //     toggleQuestionsPage();
+        //     //toggleDataEntryPage ON
+        //     toggleDataEntryPage();
+        // }
     }, 1000);
 }
 
@@ -159,6 +159,7 @@ function displayQuestions() {
     //if not, send player to .dataEntryPage
     if(currentQuestion > questionsToAsk.length){
         //console.log("This is working");
+        playerScore_ID.textContent = timerCount;
         hasWon = true;
     }
     console.log("current q: " + currentQuestion);
