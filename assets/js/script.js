@@ -176,7 +176,7 @@ function displayQuestions() {
     if(currentQuestion === 1) {
 
         //correctAnswer = q0Answers[3]
-        question_ID.textContent = questionsToAsk[currentQuestion];
+        question_ID.textContent = questionsToAsk[currentQuestion - 1];
         
         answer1_Btn.textContent = q0Answers[0];
         answer1_Btn.setAttribute("data-answer", "incorrect");
@@ -193,7 +193,7 @@ function displayQuestions() {
     } else if(currentQuestion === 2){
         //currentQuestion === 1;
         //correctAnswer = q1Answers[0]
-        question_ID.textContent = questionsToAsk[currentQuestion];
+        question_ID.textContent = questionsToAsk[currentQuestion - 1];
         answer1_Btn.textContent = q1Answers[0];
         answer1_Btn.setAttribute("data-answer", "correct");
 
@@ -208,7 +208,7 @@ function displayQuestions() {
     } else if(currentQuestion === 3){
         //currentQuestion === 2;
         //correctAnswer = q2Answers[2]
-        question_ID.textContent = questionsToAsk[currentQuestion];
+        question_ID.textContent = questionsToAsk[currentQuestion - 1];
         answer1_Btn.textContent = q2Answers[0];
         answer1_Btn.setAttribute("data-answer", "incorrect");
 
@@ -222,8 +222,6 @@ function displayQuestions() {
         answer4_Btn.setAttribute("data-answer", "incorrect");
 
     }
-
-
 }
 
 answer1_Btn.addEventListener("click", checkAnswer);
@@ -317,7 +315,7 @@ submit_Btn.addEventListener("click", function(event) {
     // localStorage.setItem("newScore", JSON.stringify(pointsArray));
 
     //clear out the leaderboard input box
-    initials_Input.textContent = "";
+    initials_Input.value = "";
     renderLeaderboard();
 });
 
