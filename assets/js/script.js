@@ -368,18 +368,19 @@ function restartGame() {
 }
 
 //erase all children of <ul> element with tag #leaderboard-ul
-function eraseLeaderboard(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+function eraseLeaderboard() {
+    console.log("erasing leaderboard");
+    while (leaderboardParent_ID.firstChild) {
+        leaderboardParent_ID.removeChild(leaderboardParent_ID.firstChild);
     }
 }
-eraseLeaderboard(leaderboardParent_ID);
+//eraseLeaderboard(leaderboardParent_ID);
 
 //erases leaderboard data on click
-clearScores_Btn.addEventListener("click", eraseLeaderboard)
+clearScores_Btn.addEventListener("click", eraseLeaderboard);
 
 //restarts the game on click
-backToStart_Btn.addEventListener("click", restartGame)
+backToStart_Btn.addEventListener("click", restartGame);
 
 //when startGame button is clicked, startGame()
 startGame_Btn.addEventListener("click", startGame);
