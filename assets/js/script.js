@@ -28,19 +28,12 @@ While .dataEntry is shown:
 While .leaderboard is shown:
 1. --Update display with score and initials from localStorage
 2. Organize leaderboard from highest score to lowest
-3. Clicking clearScores-btn will erase all scores and initals from localStorage
-    leaderboard will display nothing
-4. Clicking returnToStart-btn will send player back to .introPage
-    hide .leaderboard
-    show .introPage
+3. --Clicking clearScores-btn will erase all scores and initals from localStorage
+    --leaderboard will display nothing
+4. --Clicking returnToStart-btn will send player back to .introPage
+    --hide .leaderboard
+    --show .introPage
 
-
-On load: Display the introPage
-2. A question is displayed on screen with 4 answer choices in a list
-4. Display the next question
-5. Loop 3 and 4 until all questions are displayed OR time runs out
-6. Allow player to see their score and enter intials
-7. Save score and initials to the leader board in localStorage AND on screen in an <li>
 -------------------------------------------------------------------------------------------------------*/
 
 //CLASS REFERENCES
@@ -300,19 +293,18 @@ submit_Btn.addEventListener("click", function(event) {
         initials: initials_Input.value,
         score: playerScore_ID.textContent
     };
-    //store the player object in localStorage
+    //grab whatever is stored and set equal to scoreToRender
     var scoreToRender = JSON.parse(localStorage.getItem("newScore"));
     
+    //if nothing is stored, set scoreToRedner to be empty array
     if(scoreToRender === null ){
         scoreToRender = [];
     }
-    
+    //whatever initials and score were just created, add it to the scoreToRender array
     scoreToRender.push(player);
-
-    localStorage.setItem("newScore", JSON.stringify(scoreToRender));
     
-    // localStorage.setItem("newPlayer", JSON.stringify(playersArray));
-    // localStorage.setItem("newScore", JSON.stringify(pointsArray));
+    //store the values of scoreToRender array in localStorage as newScore
+    localStorage.setItem("newScore", JSON.stringify(scoreToRender));
 
     //clear out the leaderboard input box
     initials_Input.value = "";
@@ -325,19 +317,6 @@ function renderLeaderboard() {
     var scoreToRender = JSON.parse(localStorage.getItem("newScore"));
     // //console.log("saved score: " + scoreToRender);
 
-    // var playersToDisplay = [];
-    // var scoresToDisplay = [];
-
-    // for(var x = 0; x < playersArray.length; x++) {
-    //     playersToDisplay = playersArray[x];
-    // }
-
-    // for(var i = 0; i < pointsArray.length; i++) {
-    //     scoresToDisplay = pointsArray[x];
-    // }
-    // console.log(playersToDisplay);
-    // console.log(scoresToDisplay);
-
     if (scoreToRender !== null){
         leaderboardParent_ID.innerHTML = "";
         for(var x = 0; x < scoreToRender.length; x++){
@@ -348,33 +327,13 @@ function renderLeaderboard() {
             //create new <p> element
             var newPinit = document.createElement("p");
             //set newPinit to the value of localStorage initials
-            //newPinit.setAttribute("id", "playerInitial");
             newPinit.textContent = (scoreToRender[x].initials + "___________" + scoreToRender[x].score);
             //append  <p> element to newLI
             newLI.appendChild(newPinit);
             //append <li> element to the <ul> parent object
             leaderboardParent_ID.appendChild(newLI);
-
         }
-
     }
-
-    // var storedPlayers = JSON.parse(localStorage.getItem("newPlayer"));
-    // var storedScores = JSON.parse(localStorage.getItem("newScore"));
-    // if (storedPlayers !== null){
-    //     var playersToDisplay = storedPlayers;
-    //     var scoresToDisplay = storedScores;
-
-    //     for(var x = 0; x < playersArray.length; x++) {
-    //         playersToDisplay = playersArray[x];
-    //     }
-
-    //     for(var i = 0; i < pointsArray.length; i++) {
-    //         scoresToDisplay = pointsArray[x];
-    //     }
-    //     console.log(playersToDisplay);
-    //     console.log(scoresToDisplay);
-    // }
 }
 
 function restartGame() {
@@ -384,8 +343,8 @@ function restartGame() {
     init();
 }
 
+//erase the content of localStorage("newScore")
 //erase all children of <ul> element with tag #leaderboard-ul
-//does not yet erase localStorage variables
 function eraseLeaderboard() {
     console.log("erasing leaderboard");
     localStorage.removeItem("newScore");
