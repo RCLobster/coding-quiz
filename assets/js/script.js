@@ -303,7 +303,15 @@ submit_Btn.addEventListener("click", function(event) {
         score: playerScore_ID.textContent
     };
     //store the player object in localStorage
-    localStorage.setItem("newScore", JSON.stringify(player));
+    var scoreToRender = JSON.parse(localStorage.getItem("newScore"));
+    
+    if(scoreToRender === null ){
+        scoreToRender = [];
+    }
+    
+    scoreToRender.push(player);
+
+    localStorage.setItem("newScore", JSON.stringify(scoreToRender));
     
     // localStorage.setItem("newPlayer", JSON.stringify(playersArray));
     // localStorage.setItem("newScore", JSON.stringify(pointsArray));
@@ -318,28 +326,39 @@ function renderLeaderboard() {
     toggleLeaderboardPage();
     var scoreToRender = JSON.parse(localStorage.getItem("newScore"));
     // //console.log("saved score: " + scoreToRender);
-    
+
+    // var playersToDisplay = [];
+    // var scoresToDisplay = [];
+
+    // for(var x = 0; x < playersArray.length; x++) {
+    //     playersToDisplay = playersArray[x];
+    // }
+
+    // for(var i = 0; i < pointsArray.length; i++) {
+    //     scoresToDisplay = pointsArray[x];
+    // }
+    // console.log(playersToDisplay);
+    // console.log(scoresToDisplay);
+
     if (scoreToRender !== null){
-        //create new <li> element
-        var newLI = document.createElement("li");
-        //give newLI an id=#leaderboardScore
-        newLI.setAttribute("id", "leaderboardScore");
-        //create new <p> element
-        var newPinit = document.createElement("p");
-        //set newPinit to the value of localStorage initials
-        //newPinit.setAttribute("id", "playerInitial");
-        newPinit.textContent = (scoreToRender.initials + "___________" + scoreToRender.score);
-        //create new <p> element
-        //var newPscore = document.createElement("p");
-        //set newPscore to the value of localStorage score
-        //newPscore.textContent = scoreToRender.score;
-        //newPscore.setAttribute("id", "playerScore");
-        //append both <p> elements to newLI
-        newLI.appendChild(newPinit);
-        //newLI.appendChild(newPscore);
-        //append <li> element to the <ul> parent object
-        leaderboardParent_ID.appendChild(newLI);
-        //leaderboardParent_ID.createElement("li");
+        leaderboardParent_ID.innerHTML = "";
+        for(var x = 0; x < scoreToRender.length; x++){
+            //create new <li> element
+            var newLI = document.createElement("li");
+            //give newLI an id=#leaderboardScore
+            newLI.setAttribute("id", "leaderboardScore");
+            //create new <p> element
+            var newPinit = document.createElement("p");
+            //set newPinit to the value of localStorage initials
+            //newPinit.setAttribute("id", "playerInitial");
+            newPinit.textContent = (scoreToRender[x].initials + "___________" + scoreToRender[x].score);
+            //append  <p> element to newLI
+            newLI.appendChild(newPinit);
+            //append <li> element to the <ul> parent object
+            leaderboardParent_ID.appendChild(newLI);
+
+        }
+
     }
 
     // var storedPlayers = JSON.parse(localStorage.getItem("newPlayer"));
@@ -368,8 +387,11 @@ function restartGame() {
 }
 
 //erase all children of <ul> element with tag #leaderboard-ul
+//does not yet erase localStorage variables
 function eraseLeaderboard() {
     console.log("erasing leaderboard");
+    localStorage.removeItem("newScore");
+    
     while (leaderboardParent_ID.firstChild) {
         leaderboardParent_ID.removeChild(leaderboardParent_ID.firstChild);
     }
