@@ -8,11 +8,11 @@ On Page Load: Display the introPage
 
 While .quizQuestions is shown:
 1. --A question is displayed from array of questions
-2. Answer choices for the current question are displayed in <li> format
-3.* When an answer choice is clicked,
-    if correct: display correct, add 1 point
-    *if incorrect: display incorrect, subtract X seconds from timer
-    delay then display the next question
+2. --Answer choices for the current question are displayed in <li> format
+3.--* When an answer choice is clicked,
+    --if correct: display correct, add 1 point
+    --*if incorrect: display incorrect, subtract X seconds from timer
+    --delay then display the next question
 4.--* When all questions are answered OR timer reaches 0 seconds
     --hide .quizQuestions div
     --show .dataEntry
@@ -71,9 +71,10 @@ var initials_Input = document.querySelector("#inputInitials");
 var hasWon = false;
 var timer;
 var timerCount;
-var currentQuestion = 0;
+var currentQuestion = 1;
 var correctAnswer;
 var delay = 900;
+var subtractPenalty = 13;
 
 var isIntroPageOn = false;
 var isQuestionsPageOn = true;
@@ -128,10 +129,6 @@ function startTimer() {
         timerCount--;
         timerText_ID.textContent = timerCount;
 
-        // if (!hasWon && timerCount > 0) {
-        //     displayQuestions();
-        // }
-
         //check for win condition
         if (hasWon && timerCount > 0) {
             clearInterval(timer);
@@ -155,15 +152,23 @@ function startTimer() {
     }, 1000);
 }
 
+
 function displayQuestions() {
-    console.log(correctAnswer);
+    //console.log(correctAnswer);
+    //check if we have more questions to display
+    //if not, send player to .dataEntryPage
+    if(currentQuestion > questionsToAsk.length){
+        //console.log("This is working");
+        hasWon = true;
+    }
     console.log("current q: " + currentQuestion);
+    
 
     //reset UI feedback to be empty
     answerFeedback_ID.textContent = "";
-    if(currentQuestion === 0) {
+    if(currentQuestion === 1) {
 
-        correctAnswer = q0Answers[3]
+        //correctAnswer = q0Answers[3]
         question_ID.textContent = questionsToAsk[currentQuestion];
         
         answer1_Btn.textContent = q0Answers[0];
@@ -178,9 +183,9 @@ function displayQuestions() {
         answer4_Btn.textContent = q0Answers[3];
         answer4_Btn.setAttribute("data-answer", "correct");
 
-    } else if(currentQuestion === 1){
+    } else if(currentQuestion === 2){
         //currentQuestion === 1;
-        correctAnswer = q1Answers[0]
+        //correctAnswer = q1Answers[0]
         question_ID.textContent = questionsToAsk[currentQuestion];
         answer1_Btn.textContent = q1Answers[0];
         answer1_Btn.setAttribute("data-answer", "correct");
@@ -193,9 +198,9 @@ function displayQuestions() {
 
         answer4_Btn.textContent = q1Answers[3];
         answer4_Btn.setAttribute("data-answer", "incorrect");
-    } else if(currentQuestion === 2){
+    } else if(currentQuestion === 3){
         //currentQuestion === 2;
-        correctAnswer = q2Answers[2]
+        //correctAnswer = q2Answers[2]
         question_ID.textContent = questionsToAsk[currentQuestion];
         answer1_Btn.textContent = q2Answers[0];
         answer1_Btn.setAttribute("data-answer", "incorrect");
@@ -210,6 +215,8 @@ function displayQuestions() {
         answer4_Btn.setAttribute("data-answer", "incorrect");
 
     }
+
+
 }
 
 answer1_Btn.addEventListener("click", checkAnswer);
@@ -219,17 +226,13 @@ answer4_Btn.addEventListener("click", checkAnswer);
 
 function checkAnswer(event) {
     event.preventDefault();
-    if(currentQuestion > questionsToAsk.length){
-        currentQuestion = 0;
-        console.log("This is working");
-    }
 
     //check the value of the button that was just clicked and grab its data-answer attribute
     var checkAttribute = event.target.getAttribute("data-answer");
     //console.log(currentQuestion, correctAnswer, q0Answers[3]);
-    if(currentQuestion === 0 && checkAttribute === "correct"){
+    if(currentQuestion === 1 && checkAttribute === "correct"){
         //correct
-        console.log("Q0 is CORRECT");
+        //console.log("Q0 is CORRECT");
         //display to the player they got the question correct
         answerFeedback_ID.textContent = "Correct!";
         //reset checkAttribute to no value
@@ -239,40 +242,44 @@ function checkAnswer(event) {
         //delay call of function to display next question
         setTimeout(displayQuestions, delay);
         //displayQuestions();
-    } else if (currentQuestion === 0 && checkAttribute === "incorrect"){
+    } else if (currentQuestion === 1 && checkAttribute === "incorrect"){
         //incorrect
-        console.log("q0 incorrect");
+        //console.log("q0 incorrect");
         //display to the player they got the question incorrect
         answerFeedback_ID.textContent = "Incorrect :(";
+        //subtract time from the timer for incorrect answers
+        timerCount -= subtractPenalty;
         checkAttribute = null;
         currentQuestion++;
         setTimeout(displayQuestions, delay);
         //displayQuestions();
     }
 
-    if(currentQuestion === 1 && checkAttribute === "correct"){
-        console.log("q1 is CORRECT");
-        answerFeedback_ID.textContent = "Correct!";
-        checkAttribute = null;
-        currentQuestion++;
-        setTimeout(displayQuestions, delay);
-    } else if(currentQuestion === 1 && checkAttribute === "incorrect"){
-        console.log("q1 is incorrect");
-        answerFeedback_ID.textContent = "Incorrect :(";
-        checkAttribute = null;
-        currentQuestion++;
-        setTimeout(displayQuestions, delay);
-    }
-
     if(currentQuestion === 2 && checkAttribute === "correct"){
-        console.log("q2 is CORRECT");
+        //console.log("q1 is CORRECT");
         answerFeedback_ID.textContent = "Correct!";
         checkAttribute = null;
         currentQuestion++;
         setTimeout(displayQuestions, delay);
     } else if(currentQuestion === 2 && checkAttribute === "incorrect"){
-        console.log("q2 is incorrect");
+        //console.log("q1 is incorrect");
         answerFeedback_ID.textContent = "Incorrect :(";
+        timerCount -= subtractPenalty;
+        checkAttribute = null;
+        currentQuestion++;
+        setTimeout(displayQuestions, delay);
+    }
+
+    if(currentQuestion === 3 && checkAttribute === "correct"){
+        //console.log("q2 is CORRECT");
+        answerFeedback_ID.textContent = "Correct!";
+        checkAttribute = null;
+        currentQuestion++;
+        setTimeout(displayQuestions, delay);
+    } else if(currentQuestion === 3 && checkAttribute === "incorrect"){
+        //console.log("q2 is incorrect");
+        answerFeedback_ID.textContent = "Incorrect :(";
+        timerCount -= subtractPenalty;
         checkAttribute = null;
         currentQuestion++;
         setTimeout(displayQuestions, delay);
